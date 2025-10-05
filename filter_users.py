@@ -32,8 +32,14 @@ def filter_users_by_name(name):
 
     filtered_users = [user for user in users if user["name"].lower() == name.lower()]
 
-    for user in filtered_users:
-        print(user)
+    if not filtered_users:
+        print(f"No user found with name '{name}'")
+
+    else:
+        for user in filtered_users:
+            print(user)
+
+    print()  # linebreak
 
 
 def filter_by_age(age):
@@ -49,8 +55,14 @@ def filter_by_age(age):
 
     filtered_users = [user for user in users if user["age"] == age]
 
-    for user in filtered_users:
-        print(user)
+    if not filtered_users:
+        print(f"No user found with age '{age}'")
+
+    else:
+        for user in filtered_users:
+            print(user)
+
+    print()  # linebreak
 
 
 def filter_by_email(email):
@@ -66,24 +78,47 @@ def filter_by_email(email):
 
     filtered_users = [user for user in users if user["email"] == email]
 
-    for user in filtered_users:
-        print(user)
+    if not filtered_users:
+        print(f"No user found with email '{email}'")
+
+    else:
+        for user in filtered_users:
+            print(user)
+
+    print()  # linebreak
+
+
+def repeat_filter():
+    option = input("Do you want to continue filter for data? (y/n) ").strip().lower()
+
+    if option == "y":
+        return True
+
+    elif option == "n":
+        return False
 
 
 if __name__ == "__main__":
-    filter_option = input("What would you like to filter by? (name, age, email): ").strip().lower()
+    while True:
+        filter_option = input("What would you like to filter by? (name, age, email): ").strip().lower()
 
-    if filter_option == "name":
-        name_to_search = input("Enter a name to filter users: ").strip()
-        filter_users_by_name(name_to_search)
+        if filter_option == "name":
+            name_to_search = input("Enter a name to filter users: ").strip()
+            filter_users_by_name(name_to_search)
+        elif filter_option == "age":
+            age_to_search = int(input("Enter a age to filter users: ").strip())
+            filter_by_age(age_to_search)
+            break
+        elif filter_option == "email":
+            email_to_search = input("Enter a email to filter users: ").strip()
+            filter_by_email(email_to_search)
+            break
+        else:
+            print("Filtering by that option is not yet supported.\n")
+            continue
 
-    elif filter_option == "age":
-        age_to_search = int(input("Enter a age to filter users: ").strip())
-        filter_by_age(age_to_search)
+        # Repeat loop
+        if repeat_filter() == False:
+            break
 
-    elif filter_option == "email":
-        email_to_search = input("Enter a email to filter users: ").strip()
-        filter_by_email(email_to_search)
-
-    else:
-        print("Filtering by that option is not yet supported.")
+        print()  # linebreak
